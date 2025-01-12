@@ -62,29 +62,9 @@ knn.fit(X_train, y_train)
 # Make predictions
 y_pred = knn.predict(X_test)
 
-def calculate_metrics(y_true, y_pred):
-    # Initialize counts
-    TP = FP = TN = FN = 0
-
-    # Calculate TP, FP, TN, FN
-    for true, pred in zip(y_true, y_pred):
-        if true == 1 and pred == 1:
-            TP += 1  # True Positive
-        elif true == 0 and pred == 1:
-            FP += 1  # False Positive
-        elif true == 0 and pred == 0:
-            TN += 1  # True Negative
-        elif true == 1 and pred == 0:
-            FN += 1  # False Negative
-
-    # Compute metrics
-    accuracy = (TP + TN) / (TP + TN + FP + FN) if (TP + TN + FP + FN) > 0 else 0
-    precision = TP / (TP + FP) if (TP + FP) > 0 else 0
-    recall = TP / (TP + FN) if (TP + FN) > 0 else 0
-
-    return accuracy, precision, recall
-
-accuracy, precision, recall = calculate_metrics(y_test, y_pred)
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
 
 print("Accuracy:", "{:.2f}".format(accuracy))
 print("Precision:", "{:.2f}".format(precision))
